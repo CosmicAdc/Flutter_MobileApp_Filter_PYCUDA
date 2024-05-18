@@ -10,10 +10,14 @@ from typing import List
 import os
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from .analitics import auth
 
+## EN EL POETRY HAY QUE HACER UN PIP INSTALL sqlalchemy y un pip install psycopg2 ya que debe hacerse desde el SO
 
 app = FastAPI(static_directory="app/static")
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
+app.include_router(auth.router)
 
 
 app.add_middleware(
