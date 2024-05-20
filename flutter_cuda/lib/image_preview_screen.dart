@@ -39,8 +39,9 @@ class _ImagePreviewScreenState extends State<ImagePreviewScreen> {
     );
   }
 
-Future<void> aplicarFiltroCirculo() async {
-  final url = Uri.parse('http://10.0.2.2:8000/filtroCirculo/');
+Future<void> aplicarFiltro(String servicioFiltro) async {
+  final urlBase = 'http://10.0.2.2:8000/';
+  final url = Uri.parse('$urlBase$servicioFiltro/');
   final headers = {'Content-Type': 'application/json'};
   final body = jsonEncode({
     'path_file': widget.pathOriginal,
@@ -113,23 +114,23 @@ Future<void> aplicarOriginal() async {
                   'Original',
                   'assets/original.jpg',
                   () async {
-                    await aplicarOriginal(); // Llamar al método aplicarOriginal
+                    await aplicarOriginal();
                   },
                 ),
                 SizedBox(width: 16),
                 _buildFilterButton(
                   'UPS',
                   'assets/ups.jpg',
-                  () {
-                    // Aplicar otro filtro
+                  () async {
+                    await aplicarFiltro('filtroUPS');
                   },
                 ),
                 SizedBox(width: 16),
                 _buildFilterButton(
                   'Marea Roja',
                   'assets/marea.jpg',
-                  () {
-                    // Aplicar otro filtro
+                  () async {
+                    await aplicarFiltro('filtroMarea');
                   },
                 ),
                 SizedBox(width: 16),
@@ -137,7 +138,7 @@ Future<void> aplicarOriginal() async {
                   'Circulo',
                   'assets/circulo.jpg',
                   () async {
-                    await aplicarFiltroCirculo();
+                    await aplicarFiltro('filtroCirculo');
                   },
                 ),
               ],

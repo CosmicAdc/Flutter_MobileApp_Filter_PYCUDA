@@ -30,8 +30,8 @@ app.add_middleware(
 
 SAVE_PATH_ORIGINAL = "app/static/originales/"
 SAVE_PATH_CIRCULO = "app/static/circulo/"
-SAVE_PATH_GAUSS = "app/static/gauss/"
-SAVE_PATH_MEDIANA = "app/static/mediana/"
+SAVE_PATH_MAREA = "app/static/marea/"
+SAVE_PATH_UPS = "app/static/ups/"
 
 ##Subir imagen al servidor
 @app.post("/upload/")
@@ -56,9 +56,7 @@ async def filtro_sobel(params: FiltroSobelParams):
     bloques_x = 32
     bloques_y = 32
     path_file = params.path_file
-    print(path_file)
     nombre = path_file[22:]
-    print(nombre)
     path=str(path_file)
     imagenFinal, tiempo , bloques, grids ,ancho , alto  ,grids_verdaderos = filtroSobel(path,bloques_x,bloques_y,mascara)
     path_final=SAVE_PATH_CIRCULO+'Circulo-'+str(nombre)
@@ -66,34 +64,34 @@ async def filtro_sobel(params: FiltroSobelParams):
     cv2.imwrite(path_final, imagenFinal)
     return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Sobel X","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos }
 
-@app.post("/Gauss/")
+@app.post("/filtroUPS/")
 async def filtro_gauss(params: FiltroGaussParams):
     mascara = params.mascara
     bloques_x = params.bloques_x
     bloques_y = params.bloques_y
     path_file = params.path_file
+    nombre = path_file[22:]
+    path=str(path_file)
+    path_final=SAVE_PATH_UPS+'UPS-'+str(nombre)
 
-
-    path=SAVE_PATH_ORIGINAL+str(path_file)
     imagenFinal, tiempo , bloques, grids ,ancho , alto, grids_verdaderos = filtroGauss(path,bloques_x,bloques_y,mascara)
 
-    path_final=SAVE_PATH_GAUSS+'Gauss-'+str(mascara)+'-'+str(path_file)
     cv2.imwrite(path_final, imagenFinal)
 
     return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Gauss","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos}
 
-@app.post("/Mediana/")
+@app.post("/filtroMarea/")
 async def filtro_gauss(params: FiltroMedianaParams):
     mascara = params.mascara
     bloques_x = params.bloques_x
     bloques_y = params.bloques_y
     path_file = params.path_file
+    nombre = path_file[22:]
+    path=str(path_file)
+    path_final=SAVE_PATH_MAREA+'Marea-'+str(nombre)
 
-
-    path=SAVE_PATH_ORIGINAL+str(path_file)
     imagenFinal, tiempo , bloques, grids ,ancho , alto ,grids_verdaderos = filtroMediana(path,bloques_x,bloques_y,mascara)
 
-    path_final=SAVE_PATH_MEDIANA+'mediana-'+str(mascara)+'-'+str(path_file)
     cv2.imwrite(path_final, imagenFinal)
 
     return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Mediana","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos}
