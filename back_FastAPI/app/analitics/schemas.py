@@ -16,3 +16,17 @@ class UserOut(BaseModel):
 
     class Config:
         orm_mode = True
+
+class PostCreate(BaseModel):
+    id_user: int
+    image_path: str
+    description: str
+
+class PostOut(BaseModel):
+    id: int
+    id_user: int
+    image_path: str
+    description: str
+
+    class Config:
+        orm_mode = True

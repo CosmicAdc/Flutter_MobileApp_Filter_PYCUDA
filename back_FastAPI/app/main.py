@@ -52,9 +52,9 @@ async def upload_files(files: List[UploadFile] = File(...)):
 
 @app.post("/filtroSobel/")
 async def filtro_sobel(params: FiltroSobelParams):
-    mascara = params.mascara
-    bloques_x = params.bloques_x
-    bloques_y = params.bloques_y
+    mascara = 5
+    bloques_x = 32
+    bloques_y = 32
     path_file = params.path_file
 
     path=SAVE_PATH_ORIGINAL+str(path_file)

@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:image_picker/image_picker.dart';
+import 'image_preview_screen.dart';
 
 class CameraScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -38,12 +40,14 @@ class _CameraScreenState extends State<CameraScreen> {
       print('Imagen subida exitosamente. Nombre de la ruta: $nameFile');
       return nameFile;
     } else {
-      return null;
       print('Error al subir la imagen: ${response.reasonPhrase}');
+      return 'null';
     }
   } catch (e) {
     print('Error al subir la imagen: $e');
   }
+
+  
 
 }
 
@@ -68,6 +72,30 @@ class _CameraScreenState extends State<CameraScreen> {
 
     _initializeControllerFuture = _controller.initialize();
   }
+
+     Future<void> _selectImageFromGallery() async {
+      final picker = ImagePicker();
+      final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+      if (pickedImage != null) {
+        _capturedImage = pickedImage;
+        setState(() {});
+
+        final response = await uploadImage(pickedImage);
+        // Navegar a la nueva pantalla
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ImagePreviewScreen(imageFile: pickedImage, path_Original: response ?? ''),
+          ),
+        );
+      }
+    }
+
+    
+
+
+    
 
   @override
   void dispose() {
@@ -100,17 +128,7 @@ Widget build(BuildContext context) {
             },
           ),
         ),
-                if (_capturedImage != null)
-                  SizedBox(
-                    height: 200,
-                    width: 200, 
-                    child: Image.file(
-                      File(_capturedImage!.path),
-                      fit: BoxFit.cover,
-                       width: double.infinity, 
-                    ),
-            ),
-              ],
+               ],
             ),
         bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -136,21 +154,39 @@ Widget build(BuildContext context) {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera),
-        onPressed: () async {
-          try {
-            final image = await _controller.takePicture();
-            _capturedImage = image;
-            setState(() {});
-            final response= await uploadImage(image);
-
-            print('Imagen capturada: ${image.path}');
-          } catch (e) {
-            print('Error al tomar la foto: $e');
-          }
-        },
-      ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              heroTag: 'gallery',
+              child: Icon(Icons.photo_library),
+              onPressed: _selectImageFromGallery,
+            ),
+            SizedBox(width: 16), // Espacio entre los botones
+          FloatingActionButton(
+                heroTag: 'camera',
+                child: Icon(Icons.camera),
+                onPressed: () async {
+                  try {
+                    final image = await _controller.takePicture();
+                    _capturedImage = image;
+                    setState(() {});
+                    final response = await uploadImage(image);
+                    print('Imagen capturada: ${image.path}');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ImagePreviewScreen(imageFile: image, path_Original: response ?? ''),
+                      ),
+                    );
+                  } catch (e) {
+                    print('Error al tomar la foto: $e');
+                  }
+                },
+              ),
+            ],
+          ),
     );
   }
 }

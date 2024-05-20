@@ -10,9 +10,6 @@ import time
 
 
 class FiltroSobelParams(BaseModel):
-    mascara: int
-    bloques_x: int
-    bloques_y: int
     path_file: str
 
 
