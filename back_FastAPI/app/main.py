@@ -29,7 +29,7 @@ app.add_middleware(
 )
 
 SAVE_PATH_ORIGINAL = "app/static/originales/"
-SAVE_PATH_SOBEL = "app/static/sobel/"
+SAVE_PATH_CIRCULO = "app/static/circulo/"
 SAVE_PATH_GAUSS = "app/static/gauss/"
 SAVE_PATH_MEDIANA = "app/static/mediana/"
 
@@ -50,18 +50,20 @@ async def upload_files(files: List[UploadFile] = File(...)):
     return {"message": "Subida exitosamente", "name_file":name_File}
 
 
-@app.post("/filtroSobel/")
+@app.post("/filtroCirculo/")
 async def filtro_sobel(params: FiltroSobelParams):
     mascara = 5
     bloques_x = 32
     bloques_y = 32
     path_file = params.path_file
-
-    path=SAVE_PATH_ORIGINAL+str(path_file)
+    print(path_file)
+    nombre = path_file[22:]
+    print(nombre)
+    path=str(path_file)
     imagenFinal, tiempo , bloques, grids ,ancho , alto  ,grids_verdaderos = filtroSobel(path,bloques_x,bloques_y,mascara)
-    path_final=SAVE_PATH_SOBEL+'Sobel-'+str(mascara)+'-'+str(path_file)
+    path_final=SAVE_PATH_CIRCULO+'Circulo-'+str(nombre)
+    print(path_final)
     cv2.imwrite(path_final, imagenFinal)
-
     return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Sobel X","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos }
 
 @app.post("/Gauss/")

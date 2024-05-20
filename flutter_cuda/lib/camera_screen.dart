@@ -86,7 +86,7 @@ class _CameraScreenState extends State<CameraScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ImagePreviewScreen(imageFile: pickedImage, path_Original: response ?? ''),
+            builder: (context) => ImagePreviewScreen(imageFile: pickedImage, pathOriginal: response ?? ''),
           ),
         );
       }
@@ -177,7 +177,7 @@ Widget build(BuildContext context) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ImagePreviewScreen(imageFile: image, path_Original: response ?? ''),
+                        builder: (context) => ImagePreviewScreen(imageFile: image, pathOriginal: response ?? ''),
                       ),
                     );
                   } catch (e) {
