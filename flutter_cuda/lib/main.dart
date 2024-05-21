@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'camera_screen.dart';
+import 'login.dart';
+import 'register.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,8 +19,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Filtros Cuda',
-      home: MyHomePage(cameras: cameras),
+      home: const LoginPage(),
+      routes: {
+        '/register': (context) => const RegisterPage(),  // Define la ruta para RegisterPage
+      },
     );
   }
 }
@@ -56,13 +60,12 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             IconButton(
               icon: Icon(Icons.home),
-              onPressed: () {
-              },
+              onPressed: () {},
             ),
             IconButton(
               icon: Icon(Icons.play_circle),
-               onPressed: () {
-              Navigator.push(
+              onPressed: () {
+                Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => CameraScreen(cameras: widget.cameras),
