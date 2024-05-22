@@ -27,7 +27,7 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(user_model.User).filter(user_model.User.email == user.email, user_model.User.password == user.password).first()
     if not db_user:
         raise HTTPException(status_code=400, detail="Credenciales invalidas no existe")
-    return {"message": "Login correcto", "user": db_user.username}
+    return {"message": "Login correcto", "user": db_user.username, "id": db_user.id}
 
 
 ##Creación de post
