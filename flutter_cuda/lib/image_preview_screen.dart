@@ -130,7 +130,7 @@ Future<void> aplicarOriginal() async {
                   'Marea Roja',
                   'assets/marea.jpg',
                   () async {
-                    await aplicarFiltro('filtroMarea');
+                    await aplicarFiltro('filtroTurquesa');
                   },
                 ),
                 SizedBox(width: 16),

@@ -3,9 +3,9 @@ from fastapi import FastAPI, UploadFile, File, HTTPException,Request
 import cv2
 import numpy as np
 import uuid
-from .sobel import filtroSobel, FiltroSobelParams
-from .gauss import filtroGauss, FiltroGaussParams
-from .mediana import filtroMediana, FiltroMedianaParams
+from .filtro_circular import filtroCircular, filtro_circular_Params
+from .filtro_fuxia import filtroTurquesa, filtro_turquesa_Params
+from .filtro_logo_ups import filtroLogo, filtro_logo_Params
 from typing import List
 import os
 from fastapi.middleware.cors import CORSMiddleware
@@ -51,50 +51,50 @@ async def upload_files(files: List[UploadFile] = File(...)):
 
 
 @app.post("/filtroCirculo/")
-async def filtro_sobel(params: FiltroSobelParams):
+async def filtro_sobel(params: filtro_circular_Params):
     mascara = 5
     bloques_x = 32
     bloques_y = 32
     path_file = params.path_file
     nombre = path_file[22:]
     path=str(path_file)
-    imagenFinal, tiempo , bloques, grids ,ancho , alto  ,grids_verdaderos = filtroSobel(path,bloques_x,bloques_y,mascara)
+    imagenFinal, tiempo , bloques, grids ,ancho , alto  ,grids_verdaderos = filtroCircular(path,bloques_x,bloques_y,mascara)
     path_final=SAVE_PATH_CIRCULO+'Circulo-'+str(nombre)
     print(path_final)
     cv2.imwrite(path_final, imagenFinal)
-    return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Sobel X","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos }
+    return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Circulo","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos }
 
 @app.post("/filtroUPS/")
-async def filtro_gauss(params: FiltroGaussParams):
-    mascara = params.mascara
-    bloques_x = params.bloques_x
-    bloques_y = params.bloques_y
+async def filtro_gauss(params: filtro_logo_Params):
+    mascara = 5
+    bloques_x = 32
+    bloques_y = 32
     path_file = params.path_file
     nombre = path_file[22:]
     path=str(path_file)
     path_final=SAVE_PATH_UPS+'UPS-'+str(nombre)
 
-    imagenFinal, tiempo , bloques, grids ,ancho , alto, grids_verdaderos = filtroGauss(path,bloques_x,bloques_y,mascara)
+    imagenFinal, tiempo , bloques, grids ,ancho , alto, grids_verdaderos = filtroLogo(path,bloques_x,bloques_y,mascara)
 
     cv2.imwrite(path_final, imagenFinal)
 
-    return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Gauss","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos}
+    return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"UPS","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos}
 
-@app.post("/filtroMarea/")
-async def filtro_gauss(params: FiltroMedianaParams):
-    mascara = params.mascara
-    bloques_x = params.bloques_x
-    bloques_y = params.bloques_y
+@app.post("/filtroTurquesa/")
+async def filtro_gauss(params: filtro_turquesa_Params):
+    mascara = 5
+    bloques_x = 32
+    bloques_y = 32
     path_file = params.path_file
     nombre = path_file[22:]
     path=str(path_file)
-    path_final=SAVE_PATH_MAREA+'Marea-'+str(nombre)
+    path_final=SAVE_PATH_MAREA+'Turquesa-'+str(nombre)
 
-    imagenFinal, tiempo , bloques, grids ,ancho , alto ,grids_verdaderos = filtroMediana(path,bloques_x,bloques_y,mascara)
+    imagenFinal, tiempo , bloques, grids ,ancho , alto ,grids_verdaderos = filtroTurquesa(path,bloques_x,bloques_y,mascara)
 
     cv2.imwrite(path_final, imagenFinal)
 
-    return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Mediana","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos}
+    return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Turquesa","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos}
 
 
 if __name__ == "__main__":

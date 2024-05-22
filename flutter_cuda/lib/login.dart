@@ -86,7 +86,7 @@ class LoginPage extends StatelessWidget {
 
                   ),
                   onPressed: () {
-                    print('Iniciar sesión');
+                    Navigator.pushReplacementNamed(context, '/home');
                   },
                   child: Text(
                     'Iniciar sesión',

@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       home: const LoginPage(),
       routes: {
         '/register': (context) => const RegisterPage(),  // Define la ruta para RegisterPage
+        '/home': (context) => MyHomePage(cameras: cameras), 
       },
     );
   }
