@@ -52,21 +52,19 @@ async def upload_files(files: List[UploadFile] = File(...)):
 
 @app.post("/filtroCirculo/")
 async def filtro_sobel(params: filtro_circular_Params):
-    mascara = 5
     bloques_x = 32
     bloques_y = 32
     path_file = params.path_file
     nombre = path_file[22:]
     path=str(path_file)
-    imagenFinal, tiempo , bloques, grids ,ancho , alto  ,grids_verdaderos = filtroCircular(path,bloques_x,bloques_y,mascara)
+    imagenFinal, tiempo= filtroCircular(path,bloques_x,bloques_y)
     path_final=SAVE_PATH_CIRCULO+'Circulo-'+str(nombre)
     print(path_final)
     cv2.imwrite(path_final, imagenFinal)
-    return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Circulo","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos }
+    return {"ruta_imagen": path_final, "tiempo": tiempo}
 
 @app.post("/filtroUPS/")
 async def filtro_gauss(params: filtro_logo_Params):
-    mascara = 5
     bloques_x = 32
     bloques_y = 32
     path_file = params.path_file
@@ -74,15 +72,14 @@ async def filtro_gauss(params: filtro_logo_Params):
     path=str(path_file)
     path_final=SAVE_PATH_UPS+'UPS-'+str(nombre)
 
-    imagenFinal, tiempo , bloques, grids ,ancho , alto, grids_verdaderos = filtroLogo(path,bloques_x,bloques_y,mascara)
+    imagenFinal, tiempo = filtroLogo(path,bloques_x,bloques_y)
 
     cv2.imwrite(path_final, imagenFinal)
 
-    return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"UPS","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos}
+    return {"ruta_imagen": path_final, "tiempo": tiempo}
 
 @app.post("/filtroTurquesa/")
 async def filtro_gauss(params: filtro_turquesa_Params):
-    mascara = 5
     bloques_x = 32
     bloques_y = 32
     path_file = params.path_file
@@ -90,11 +87,11 @@ async def filtro_gauss(params: filtro_turquesa_Params):
     path=str(path_file)
     path_final=SAVE_PATH_MAREA+'Turquesa-'+str(nombre)
 
-    imagenFinal, tiempo , bloques, grids ,ancho , alto ,grids_verdaderos = filtroTurquesa(path,bloques_x,bloques_y,mascara)
+    imagenFinal, tiempo = filtroTurquesa(path,bloques_x,bloques_y)
 
     cv2.imwrite(path_final, imagenFinal)
 
-    return {"ruta_imagen": path_final, "tiempo": tiempo, "filtro":"Turquesa","bloques": bloques, "grids": grids,"ancho": ancho, "alto": alto,"grids_verdaderos": grids_verdaderos}
+    return {"ruta_imagen": path_final, "tiempo": tiempo}
 
 
 if __name__ == "__main__":

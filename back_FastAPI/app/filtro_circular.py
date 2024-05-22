@@ -43,7 +43,7 @@ def crear_mascara_circularRGB(alto, ancho, canales, radio):
     return mascara
 
 
-def filtroCircular(path, BloqueX, BloqueY, mascara):
+def filtroCircular(path, BloqueX, BloqueY):
 
     mod = creaciónMODCUDACircular()
     #imagen = cargarImagen(path)
@@ -76,20 +76,4 @@ def filtroCircular(path, BloqueX, BloqueY, mascara):
     cuda.memcpy_dtoh(outputImageGPU, d_output)
     outputImageGPU = outputImageGPU.reshape((alto, ancho, canales))
 
-    bloques = int(BloqueX) * int(BloqueY)
-    grids = ((ancho + blocks[0] - 1) // blocks[0]) * ((alto + blocks[1] - 1) // blocks[1])
-    grids_verdaderos=((ancho + blocks[0])+1 + (blocks[0]) * (alto + blocks[1])+1)
-    #cv2.imwrite('Circulo.jpg', outputImageGPU)
-    return outputImageGPU, tiempo, bloques, grids, ancho, alto, grids_verdaderos
-
-
-# Ejemplo de uso:
-#path_file = "2.jpg"
-#params = FiltroCircularParams(bloques_x=16, bloques_y=16, path_file=path_file)
-#output_image, tiempo, bloques, grids, ancho, alto, grids_verdaderos = aplicarMascaraCircular(params.path_file, params.bloques_x, params.bloques_y)
-#print(tiempo)
-#print(bloques)
-#print(grids)
-#print(ancho)
-#print(alto)
-#print(grids_verdaderos)
+    return outputImageGPU, tiempo

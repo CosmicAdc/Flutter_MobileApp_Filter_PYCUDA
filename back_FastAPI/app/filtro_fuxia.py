@@ -32,7 +32,7 @@ def creaciónMODCUDA():
     return mod
 
 
-def filtroTurquesa(path, BloqueX, BloqueY, mascara):
+def filtroTurquesa(path, BloqueX, BloqueY):
     # Leer la imagen y convertirla en un array
     img = cv2.imread(path)
     imgarray = img.astype(np.int32)
@@ -73,20 +73,4 @@ def filtroTurquesa(path, BloqueX, BloqueY, mascara):
     # Tiempo de ejecución en GPU
     tiempo = endGPU - startGPU
 
-    # Guardar y mostrar la imagen resultante
-    #cv2.imwrite('Pixel.jpg', output_image.astype(np.uint8))
-
-    bloques = int(BloqueX) * int(BloqueY)
-    grids = ((ancho + block_size) + 1 // block_size) * ((alto + block_size) + 1 // block_size)
-    grids_verdaderos = ((ancho + block_size) + 1 + (block_size) * (alto + block_size) + 1)
-
-    return output_image, tiempo, bloques, grids, ancho, alto, grids_verdaderos
-
-#path_file = "2.jpg"
-#output_image, tiempo, bloques, grids, ancho, alto, grids_verdaderos = filtroPixeled(path_file,32, 32)
-#print(tiempo)
-#print(bloques)
-#print(grids)
-#print(ancho)
-#print(alto)
-#print(grids_verdaderos)
+    return output_image, tiempo

@@ -37,7 +37,7 @@ def creaciónMODCUDA():
     return mod
 
 
-def filtroLogo(path_img, BloqueX, BloqueY, mascara):
+def filtroLogo(path_img, BloqueX, BloqueY):
     # Leer la imagen y la máscara, y convertirlas en arrays
     img = cv2.imread(path_img)
     mask = cv2.imread("app/static/originales/marco.png")
@@ -86,22 +86,5 @@ def filtroLogo(path_img, BloqueX, BloqueY, mascara):
     # Tiempo de ejecución en GPU
     tiempo = endGPU - startGPU
 
-    # Guardar la imagen resultante
-    #cv2.imwrite('LogoImagen.jpg', output_image.astype(np.uint8))
+    return output_image, tiempo
 
-    bloques = int(BloqueX) * int(BloqueY)
-    grids = ((ancho + block_size) + 1 // block_size) * ((alto + block_size) + 1 // block_size)
-    grids_verdaderos = ((ancho + block_size) + 1 + (block_size) * (alto + block_size) + 1)
-
-    return output_image, tiempo, bloques, grids, ancho, alto, grids_verdaderos
-
-
-#path_file = "app/2.jpg"
-#params = FiltroCircularParams(bloques_x=16, bloques_y=16, path_file=path_file)
-#output_image, tiempo, bloques, grids, ancho, alto, grids_verdaderos = filtroLogo(path_file, 32, 32)
-#print(tiempo)
-#print(bloques)
-#print(grids)
-#print(ancho)
-#print(alto)
-#print(grids_verdaderos)
