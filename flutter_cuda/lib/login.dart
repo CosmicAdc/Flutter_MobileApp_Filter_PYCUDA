@@ -41,22 +41,30 @@ class LoginPage extends StatelessWidget {
     }
   }
 
-  Future<http.Response> postRequest(String email, String password) async {
-    var url ='http://192.168.0.102:8000/login/';
+Future<http.Response> postRequest(String email, String password) async {
+  var url ='http://10.0.2.2:8000/login';
 
-    Map<String, String> data = {
-      'email': email,
-      'password': password,
-    };
-    // Encode Map to JSON
-    var body = json.encode(data);
-
-    var response = await http.post(Uri.parse(url),
-        headers: {"Content-Type": "application/json"},
-        body: body
-    );
-    return response;
+  Map<String, String> data = {
+    'email': email,
+    'password': password,
+  };
+  var body = json.encode(data);
+  print(body);
+  var response = await http.post(Uri.parse(url),
+      headers: {"Content-Type": "application/json"},
+      body: body,
+      );
+  if (response.statusCode == 307) {
+    var redirectedUrl = response.headers['location'];
+    if (redirectedUrl != null) {
+      response = await http.post(Uri.parse(redirectedUrl),
+          headers: {"Content-Type": "application/json"},
+          body: body);
+    }
   }
+  return response;
+}
+
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController passwordConfirmController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
 
-  Future<void> _register() async {
+  Future<void> _register(BuildContext context) async {
     String email = emailController.text;
     String password = passwordController.text;
     String confirmpassword = passwordConfirmController.text;
@@ -21,15 +21,17 @@ class RegisterPage extends StatelessWidget {
     }
     try {
       var response = await postRequest(email, password, username);
-      // Procesar la respuesta aquí, si es necesario
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacementNamed(context, '/login');
       print('Respuesta del servidor: ${response.body}');
+
     } catch (e) {
       print('Error durante la autenticación: $e');
     }
   }
 
   Future<http.Response> postRequest(String email, String password, String username) async {
-    var url ='http://192.168.0.102:8000/register/';
+    var url ='http://10.0.2.2:8000/register/';
 
     Map<String, String> data = {
       'email': email,
@@ -149,7 +151,7 @@ class RegisterPage extends StatelessWidget {
                     textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
 
                   ),
-                  onPressed: _register ,
+                  onPressed:() => _register(context),
                   child: Text(
                     'Registrar',
                     style: TextStyle(fontSize: 18.0),

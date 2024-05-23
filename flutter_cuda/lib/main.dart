@@ -20,9 +20,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home:  LoginPage(),
+      initialRoute: '/login',
       routes: {
         '/register': (context) => RegisterPage(), // Define la ruta para RegisterPage
         '/home': (context) => MyHomePage(cameras: cameras),
+        '/login': (context) => LoginPage(),
       },
     );
   }
