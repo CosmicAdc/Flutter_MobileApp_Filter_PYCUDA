@@ -141,10 +141,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 1,
-                        blurRadius: 3,
-                        offset: Offset(0, 2),
+                        color: Colors.grey.withOpacity(1),
+                        spreadRadius: 2,
+                        blurRadius: 7,
+                        offset: Offset(0, 3),
                       ),
                     ],
                   ),
@@ -156,13 +156,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           _posts[index].username,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                            fontSize: 18,
                           ),
                         ),
                       ),
                       Container(
-                        width: double.infinity,
-                        height: 300,
+                        width:375,
+                        height: 450,
                         child: Image.network(
                           _posts[index].imagePath,
                           fit: BoxFit.cover,
@@ -184,15 +184,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Colors.blue, // Color de fondo azul
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home,   color: Colors.yellow),
               onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.play_circle),
+              icon: Icon(Icons.play_circle,  color: Colors.yellow),
               onPressed: () {
                 Navigator.push(
                   context,

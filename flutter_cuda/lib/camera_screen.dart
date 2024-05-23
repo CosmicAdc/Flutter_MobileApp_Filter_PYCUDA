@@ -106,7 +106,14 @@ class _CameraScreenState extends State<CameraScreen> {
 @override
 Widget build(BuildContext context) {
   return Scaffold(
-    appBar: AppBar(title: Text('Cámara')),
+    appBar: AppBar(
+  title: Text(
+        'Cámara',
+        style: TextStyle(color: Colors.yellow),
+      ),
+      backgroundColor: Colors.blue,
+      iconTheme: IconThemeData(color: Colors.yellow),
+    ),
     body: Column(
       children: [
         Expanded(
@@ -130,19 +137,27 @@ Widget build(BuildContext context) {
         ),
                ],
             ),
-        bottomNavigationBar: BottomAppBar(
+              bottomNavigationBar: BottomAppBar(
+        color: Colors.blue, // Color de fondo azul
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+                color: Colors.yellow // Color del icono amarillo
+              ),
               onPressed: () {
-                 Navigator.pop(context);
+                Navigator.pop(context);
               },
             ),
             IconButton(
-              icon: Icon(Icons.play_circle),
-               onPressed: () {
+              icon: Icon(
+                Icons.play_circle,
+                color: Colors.yellow, // Color del icono amarillo
+              ),
+              onPressed: () {
+                // Acción al presionar el botón
               },
             ),
           ],
@@ -154,13 +169,15 @@ Widget build(BuildContext context) {
           children: [
             FloatingActionButton(
               heroTag: 'gallery',
-              child: Icon(Icons.photo_library),
+              backgroundColor: Colors.blue,
+              child: Icon(Icons.photo_library, color: Colors.yellow), // Cambia el color del icono a amarillo
               onPressed: _selectImageFromGallery,
             ),
             SizedBox(width: 16), // Espacio entre los botones
           FloatingActionButton(
                 heroTag: 'camera',
-                child: Icon(Icons.camera),
+                backgroundColor: Colors.blue,
+                child: Icon(Icons.camera, color: Colors.yellow),
                 onPressed: () async {
                   try {
                     final image = await _controller.takePicture();

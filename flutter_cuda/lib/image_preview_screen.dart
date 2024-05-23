@@ -155,7 +155,12 @@ class _ImagePreviewScreenState extends State<ImagePreviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vista previa'),
+         title: Text(
+          '           Aplica los filtros ',
+          style: TextStyle(color: Colors.yellow),
+        ),
+        backgroundColor: Colors.blue,
+        iconTheme: IconThemeData(color: Colors.yellow),
       ),
       body: Stack(
         children: [
@@ -223,7 +228,8 @@ class _ImagePreviewScreenState extends State<ImagePreviewScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showDescriptionBottomSheet,
-        child: Icon(Icons.send),
+        backgroundColor:Colors.yellow,
+        child: Icon(Icons.send ,  color: Colors.blue,),
       ),
     );
   }
