@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy import Column, Integer, String, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, func
+from sqlalchemy.ext.declarative import declarative_base
 from .databases import Base
 
 class User(Base):
@@ -16,3 +16,4 @@ class Posts(Base):
     id_user = Column(Integer, ForeignKey('users.id'), nullable=False, index=True)
     image_path = Column(String(255), unique=True, index=True)
     description = Column(Text)
+    create_date = Column(DateTime, server_default=func.now())

@@ -21,10 +21,6 @@ class LoginPage extends StatelessWidget {
         String user = responseData['user'];
         int id = responseData['id'];
 
-        // Procesar los datos aquí
-        print('Mensaje: $message');
-        print('Usuario: $user');
-        print('ID: $id');
 
         Navigator.pushNamed(
           context,

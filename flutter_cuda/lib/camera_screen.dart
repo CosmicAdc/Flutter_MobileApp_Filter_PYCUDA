@@ -9,8 +9,8 @@ import 'image_preview_screen.dart';
 
 class CameraScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
-  CameraScreen({required this.cameras});
-  
+  final int? userId;
+  CameraScreen({required this.cameras,required this.userId});
   @override
   _CameraScreenState createState() => _CameraScreenState();
 }
@@ -18,7 +18,6 @@ class CameraScreen extends StatefulWidget {
 
 
 class _CameraScreenState extends State<CameraScreen> {
-
   Future<String?> uploadImage(XFile imageFile) async {
   final url = Uri.parse('http://10.0.2.2:8000/upload/');
   final request = http.MultipartRequest('POST', url);
@@ -86,7 +85,7 @@ class _CameraScreenState extends State<CameraScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ImagePreviewScreen(imageFile: pickedImage, pathOriginal: response ?? ''),
+            builder: (context) => ImagePreviewScreen(imageFile: pickedImage, pathOriginal: response ?? '', userId: widget.userId ),
           ),
         );
       }
@@ -143,12 +142,6 @@ Widget build(BuildContext context) {
             IconButton(
               icon: Icon(Icons.play_circle),
                onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => CameraScreen(cameras: widget.cameras),
-                  ),
-                );
               },
             ),
           ],
@@ -177,7 +170,7 @@ Widget build(BuildContext context) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ImagePreviewScreen(imageFile: image, pathOriginal: response ?? ''),
+                        builder: (context) => ImagePreviewScreen(imageFile: image, pathOriginal: response ?? '',userId: widget.userId,),
                       ),
                     );
                   } catch (e) {
