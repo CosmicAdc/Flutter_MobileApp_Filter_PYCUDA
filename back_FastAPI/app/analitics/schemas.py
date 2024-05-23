@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class UserCreate(BaseModel):
     username: str
@@ -25,8 +26,11 @@ class PostCreate(BaseModel):
 class PostOut(BaseModel):
     id: int
     id_user: int
+    username: Optional[str]
     image_path: str
     description: str
 
     class Config:
         orm_mode = True
+
+

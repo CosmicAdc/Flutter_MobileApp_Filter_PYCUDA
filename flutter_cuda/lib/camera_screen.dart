@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_cuda/appConfig.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class CameraScreen extends StatefulWidget {
 
 class _CameraScreenState extends State<CameraScreen> {
   Future<String?> uploadImage(XFile imageFile) async {
-  final url = Uri.parse('http://10.0.2.2:8000/upload/');
+  final url = Uri.parse('${AppConfig.apiUrl}:${AppConfig.port}/upload/');
   final request = http.MultipartRequest('POST', url);
 
   final file = await http.MultipartFile.fromPath(

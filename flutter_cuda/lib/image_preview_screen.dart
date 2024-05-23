@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter_cuda/appConfig.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -46,7 +47,7 @@ class _ImagePreviewScreenState extends State<ImagePreviewScreen> {
   }
 
   Future<void> aplicarFiltro(String servicioFiltro) async {
-    final urlBase = 'http://10.0.2.2:8000/';
+    final urlBase = '${AppConfig.apiUrl}:${AppConfig.port}/';
     final url = Uri.parse('$urlBase$servicioFiltro/');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
@@ -59,7 +60,7 @@ class _ImagePreviewScreenState extends State<ImagePreviewScreen> {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         preRuta = data['ruta_imagen'];
-        final rutaImagenFiltrada = 'http://10.0.2.2:8000/${preRuta.substring(4)}';
+        final rutaImagenFiltrada = '${AppConfig.apiUrl}:${AppConfig.port}/${preRuta.substring(4)}';
 
         setState(() {
           _filteredImagePath = rutaImagenFiltrada;
@@ -82,7 +83,7 @@ class _ImagePreviewScreenState extends State<ImagePreviewScreen> {
   }
 
   Future<void> enviarPost() async {
-    final url = Uri.parse('http://10.0.2.2:8000/posts/');
+    final url = Uri.parse('${AppConfig.apiUrl}:${AppConfig.port}/posts/');
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({
       'id_user': widget.userId,
@@ -95,9 +96,22 @@ class _ImagePreviewScreenState extends State<ImagePreviewScreen> {
 
       if (response.statusCode == 200) {
         // Manejar respuesta exitosa
-        print('Post creado exitosamente');
-        Navigator.pop(context);
-
+       showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Éxito'),
+          content: Text('¡El post se creó exitosamente!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Cerrar el diálogo
+                Navigator.of(context).pop(); // Cerrar la pantalla actual
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
 
       } else {
         print('Error al crear el post: ${response.statusCode}');

@@ -1,6 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cuda/appConfig.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+
+
+void _showErrorDialog(BuildContext context, String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void _showSuccessDialog(BuildContext context, String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Éxito'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -11,27 +55,30 @@ class RegisterPage extends StatelessWidget {
   Future<void> _register(BuildContext context) async {
     String email = emailController.text;
     String password = passwordController.text;
-    String confirmpassword = passwordConfirmController.text;
+    String confirmPassword = passwordConfirmController.text;
     String username = usernameController.text;
 
-    if (password != confirmpassword) {
-      // Mostrar un mensaje de error o realizar alguna acción
-      print('Las contraseñas no coinciden');
+    if (password != confirmPassword) {
+      _showErrorDialog(context, 'Las contraseñas no coinciden');
       return;
     }
-    try {
-      var response = await postRequest(email, password, username);
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, '/login');
-      print('Respuesta del servidor: ${response.body}');
 
-    } catch (e) {
-      print('Error durante la autenticación: $e');
+    if (email.isNotEmpty && password.isNotEmpty && confirmPassword.isNotEmpty && username.isNotEmpty) {
+      try {
+        var response = await postRequest(email, password, username);
+        Navigator.pushReplacementNamed(context, '/login');
+        _showSuccessDialog(context, 'Registro exitoso');
+        print('Respuesta del servidor: ${response.body}');
+      } catch (e) {
+        _showErrorDialog(context, 'Error durante la autenticación: $e');
+      }
+    } else {
+      _showErrorDialog(context, 'Por favor, complete todos los campos');
     }
   }
 
   Future<http.Response> postRequest(String email, String password, String username) async {
-    var url ='http://10.0.2.2:8000/register/';
+    var url ='${AppConfig.apiUrl}:${AppConfig.port}/register/';
 
     Map<String, String> data = {
       'email': email,
@@ -58,7 +105,7 @@ class RegisterPage extends StatelessWidget {
             'Registro de Usuario',
             style: TextStyle(
               fontSize: 24.0,
-              color: Colors.white,
+              color: Colors.yellow,
             ),
           ),
         ),
@@ -103,6 +150,7 @@ class RegisterPage extends StatelessWidget {
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                     decoration: TextDecoration.underline,
+                    color: Colors.black54
                   ),
                 ),
                 SizedBox(height: 20),
@@ -148,13 +196,13 @@ class RegisterPage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     padding: EdgeInsets.symmetric(vertical: 15),
-                    textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-
+                    textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color:Colors.yellow),
+                    minimumSize: Size(175, 50),  
                   ),
                   onPressed:() => _register(context),
                   child: Text(
                     'Registrar',
-                    style: TextStyle(fontSize: 18.0),
+                    style: TextStyle(fontSize: 18.0,color:Colors.yellow),
                   ),
                 ),
                 SizedBox(height: 16.0),
@@ -162,8 +210,8 @@ class RegisterPage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     padding: EdgeInsets.symmetric(vertical: 15),
-                    textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-
+                    textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color:Colors.yellow),
+                    minimumSize: Size(175, 50),  
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -171,7 +219,7 @@ class RegisterPage extends StatelessWidget {
                   },
                   child: Text(
                     'Cancelar',
-                    style: TextStyle(fontSize: 18.0),
+                    style: TextStyle(fontSize: 18.0,color:Colors.yellow),
                   ),
                 ),
               ],

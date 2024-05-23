@@ -31,7 +31,7 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
 
 
 ##Creación de post
-@router.post("/posts/", response_model=schemas.PostOut)
+@router.post("/posts/")
 def create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, id_user=post.id_user)
     if db_user is None:
@@ -42,7 +42,16 @@ def create_post(post: schemas.PostCreate, db: Session = Depends(get_db)):
 # Obtener todos los post
 @router.get("/posts/", response_model=list[schemas.PostOut])
 def read_all_posts(skip: int = 0, limit: int = 50, db: Session = Depends(get_db)):
-    return crud.get_all_posts(db, skip=skip, limit=limit)
+    posts = crud.get_all_posts(db, skip=skip, limit=limit)
+    posts_with_username = []
+    for post in posts:
+        post_dict = post.__dict__
+        user_id = post_dict['id_user']
+        user = crud.get_user(db, user_id)  
+        post_dict['username'] = user.username  # Agregar el nombre de usuario al diccionario del post
+        posts_with_username.append(post_dict)
+    return posts_with_username
+
 
 
 # Obtener post por Usuario

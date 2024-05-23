@@ -1,10 +1,13 @@
+import 'package:flutter_cuda/appConfig.dart';
+
 class Post {
   final int id;
   final int userId;
   final String imagePath;
   final String description;
+  final String username;
 
-  Post({required this.id, required this.userId, required this.imagePath, required this.description});
+  Post({required this.id, required this.userId, required this.imagePath, required this.description,required this.username});
 
   factory Post.fromJson(Map<String, dynamic> json) {
     String prepath=json['image_path'];
@@ -12,8 +15,9 @@ class Post {
     return Post(
       id: json['id'],
       userId: json['id_user'],
-      imagePath: 'http://10.0.2.2:8000/'+imagePath,
+      imagePath: '${AppConfig.apiUrl}:${AppConfig.port}/'+imagePath,
       description: json['description'],
+      username: json['username'],
     );
   }
 

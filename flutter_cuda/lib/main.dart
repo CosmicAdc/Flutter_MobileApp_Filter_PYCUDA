@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cuda/Posts.dart';
+import 'package:flutter_cuda/appConfig.dart';
 import 'camera_screen.dart';
 import 'login.dart';
 import 'register.dart';
@@ -16,7 +17,7 @@ Future<void> main() async {
 }
 
 Future<List<Post>> fetchPosts() async {
-  final response = await http.get(Uri.parse('http://10.0.2.2:8000/posts/'));
+  final response = await http.get(Uri.parse('${AppConfig.apiUrl}:${AppConfig.port}/posts/'));
   
   if (response.statusCode == 200) {
     // Si la solicitud es exitosa, analiza el JSON
@@ -27,6 +28,7 @@ for (var post in posts) {
       print('User ID: ${post.userId}');
       print('Image Path: ${post.imagePath}');
       print('Description: ${post.description}');
+      print('username: ${post.username}');
       print('----------------------');
     }
     return posts;
@@ -49,7 +51,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home:  LoginPage(),
-      initialRoute: '/login',
       routes: {
         '/register': (context) => RegisterPage(), // Define la ruta para RegisterPage
         '/home': (context) => MyHomePage(cameras: cameras),
@@ -112,10 +113,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Explora tus posts',
+          'Insta-UPS',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
+            color: Colors.yellow
           ),
         ),
         backgroundColor: Colors.blueAccent,
@@ -126,49 +128,59 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView.separated(
           itemCount: _posts.length + 1, // Agregamos 1 para el botón de carga
           separatorBuilder: (context, index) => Divider(),
-          itemBuilder: (context, index) {
-            if (index == _posts.length) {
-              return _isLoading
-                  ? _buildLoadingIndicator() // Muestra el indicador de carga si está cargando
-                  : _buildLoadMoreButton(); // Muestra el botón de carga si no está cargando
-            } else {
-              return Container(
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 300,
-                      child: Image.network(
-                        _posts[index].imagePath,
-                        fit: BoxFit.cover,
+            itemBuilder: (context, index) {
+              if (index == _posts.length) {
+                return _isLoading
+                    ? _buildLoadingIndicator() // Muestra el indicador de carga si está cargando
+                    : _buildLoadMoreButton(); // Muestra el botón de carga si no está cargando
+              } else {
+                return Container(
+                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 3,
+                        offset: Offset(0, 2),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      _posts[index].description,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          _posts[index].username,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }
-          },
+                      Container(
+                        width: double.infinity,
+                        height: 300,
+                        child: Image.network(
+                          _posts[index].imagePath,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        _posts[index].description,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
         ),
       ),
       bottomNavigationBar: BottomAppBar(
