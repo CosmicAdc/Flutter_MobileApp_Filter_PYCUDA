@@ -1,12 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordConfirmController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+
+  Future<void> _register() async {
+    String email = emailController.text;
+    String password = passwordController.text;
+    String confirmpassword = passwordConfirmController.text;
+    String username = usernameController.text;
+
+    if (password != confirmpassword) {
+      // Mostrar un mensaje de error o realizar alguna acción
+      print('Las contraseñas no coinciden');
+      return;
+    }
+    try {
+      var response = await postRequest(email, password, username);
+      // Procesar la respuesta aquí, si es necesario
+      print('Respuesta del servidor: ${response.body}');
+    } catch (e) {
+      print('Error durante la autenticación: $e');
+    }
+  }
+
+  Future<http.Response> postRequest(String email, String password, String username) async {
+    var url ='http://192.168.0.102:8000/register/';
+
+    Map<String, String> data = {
+      'email': email,
+      'password': password,
+      'username':username
+    };
+    // Encode Map to JSON
+    var body = json.encode(data);
+
+    var response = await http.post(Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: body
+    );
+    return response;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -62,6 +105,7 @@ class RegisterPage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 TextField(
+                  controller: usernameController,
                   decoration: InputDecoration(
                     labelText: 'Nombre de usuario',
                     hintText: 'Ingrese su username',
@@ -70,6 +114,7 @@ class RegisterPage extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 TextField(
+                  controller: emailController,
                   decoration: InputDecoration(
                     labelText: 'Correo',
                     hintText: 'Ingrese su correo',
@@ -79,6 +124,7 @@ class RegisterPage extends StatelessWidget {
                 SizedBox(height: 16.0),
                 TextField(
                   obscureText: true,
+                  controller: passwordController,
                   decoration: InputDecoration(
                     labelText: 'Contraseña',
                     hintText: 'Ingrese su contraseña',
@@ -88,6 +134,7 @@ class RegisterPage extends StatelessWidget {
                 SizedBox(height: 16.0),
                 TextField(
                   obscureText: true,
+                  controller: passwordConfirmController,
                   decoration: InputDecoration(
                     labelText: 'Confirmar Contraseña',
                     hintText: 'Confirme su contraseña',
@@ -102,9 +149,7 @@ class RegisterPage extends StatelessWidget {
                     textStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
 
                   ),
-                  onPressed: () {
-                    print('Registrar');
-                  },
+                  onPressed: _register ,
                   child: Text(
                     'Registrar',
                     style: TextStyle(fontSize: 18.0),

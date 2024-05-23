@@ -19,10 +19,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const LoginPage(),
+      home:  LoginPage(),
       routes: {
-        '/register': (context) => const RegisterPage(),  // Define la ruta para RegisterPage
-        '/home': (context) => MyHomePage(cameras: cameras), 
+        '/register': (context) => RegisterPage(), // Define la ruta para RegisterPage
+        '/home': (context) => MyHomePage(cameras: cameras),
       },
     );
   }
@@ -40,6 +40,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic> arguments =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     return Scaffold(
       appBar: AppBar(title: Text('Filtros Cuda')),
       body: Center(
@@ -51,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 builder: (_) => CameraScreen(cameras: widget.cameras),
               ),
             );
+            print('ID de usuario: ${arguments['id']}');
           },
           child: Text('Abrir Cámara'),
         ),
