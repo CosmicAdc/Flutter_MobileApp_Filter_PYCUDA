@@ -130,12 +130,13 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var url = '${AppConfig.apiUrl}:${AppConfig.port}';
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Center(
           child: Text(
-            'Inicio de Sesión del Usuario',
+            url,
             style: TextStyle(
               fontSize: 24.0,
               color: Colors.yellow,
