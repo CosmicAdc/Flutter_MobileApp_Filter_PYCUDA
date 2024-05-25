@@ -1,3 +1,5 @@
+![Logo](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/12a82279-0ac6-45bc-95a6-76ea53c9eaf6)
+
 # ReactNative_MobileApp_Filter_PYCUDA
  Parallel Computing Integrator Project
 
