@@ -5,13 +5,15 @@
 
  ## Asignatura: Computacion Paralela
 
- ## Estudiantes:
+ ## Integrantes:
 
+ Andres Alba
+  
  Christian Buestan
 
  Santiago Torres
 
- Andres Alba
+
 
  ## Objetivo alcanzado: 
 Desarrollar una aplicacion flutten de edicion de imagenes por medios de filtros personalizados en base a algoritmos de convolucion utilizando PyCUDA, aprovechando la potencia de procesamiento GPU, esta convolucion se realiza en una API con comunicacion a una Base de datos; la aplicacion movil llama a esta API para mostrar los resultados, esta API es dockerizada y ejecutada.
