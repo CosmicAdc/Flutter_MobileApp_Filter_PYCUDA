@@ -90,7 +90,7 @@ Dockerizacion del BackEnd fastAPI en base al dockerfile.
 ![Imagen de WhatsApp 2024-05-26 a las 10 41 00_4aa8d98d](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/d4cc8865-beff-46e3-8560-1c33d657c4d1)
 ![Imagen de WhatsApp 2024-05-26 a las 10 41 24_b35b6738](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/02eb5044-fd88-4907-a76b-428eead9b6b5)
 
-Resultado de dockerizar la Aplicación en una Imagen.
+Resultado de dockerizar la aplicación en una Imagen.
 
 ![Imagen de WhatsApp 2024-05-26 a las 10 43 41_efd2b189](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/0ff674ef-383b-43ec-8c4d-a9ee7e28270a)
 
