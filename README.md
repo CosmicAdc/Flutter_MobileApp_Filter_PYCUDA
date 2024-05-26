@@ -24,7 +24,7 @@ Desarrollar una aplicación flutter de edición de imágenes por medios de filtr
 1. Se programo 3 filtros personalizados. Siendo un filtro respectivo a icono de la UPS. Estos filtros fuero en base a algoritmos utilizando PyCUDA y el procesamiento de la GPU
    1 Filtro del logo de la UPS que se combina con la imagen de forma que quede como una marca de agua.
    1 Filtro circular de radio modificable, enfocando solo el contenido de la imagen dentro del radio.
-   1 Filtro marea roja que modifica los pixeles de la imagen para que predomine el canal Rojo, el canal verde se disminuya y que el canal azul se medialize.
+   1 Filtro fuxia que modifica los pixeles de la imagen para que predomine el canal Rojo, el canal verde se disminuya y que el canal azul se medialize.
 3. Se desarrollo una API que use estos algoritmos en llamados REQUEST POST para aplicar uno de los 3 filtros a una imagen dada y que regrese el resultado de este proceso.
    En esta API se llaman archivos PYTHON para cada filtro a aplicar en la imagen, la imagen es cargada una función POST, con ello el usuario llamara la función POST llamando a la imagen y seleccionando el filtro respectivo a aplicar, el resultado es la imagen resultante y el tiempo de ejecución del proceso.
 5. Se realizo una comunicación a base de datos POSTGRESQL para hacer 2 procesos, login y register de usuarios, aplicados dentro de la API.
@@ -51,33 +51,40 @@ Generación del DockerFile y Dockerizacion de la API.
 
 ![Imagen de WhatsApp 2024-05-24 a las 00 30 21_fcc247fe](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/726118c7-b3d9-4ef9-b0e9-648d4a1bae56)
 
-Visualización de la página de presentación de las Imágenes procesadas y el botón de realizar una nueva convolución.
-
-![Video de WhatsApp 2024-05-23 a las 00 16 11_e28eeb8a - frame at 0m10s](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/71ee71a0-c11f-45bf-a28e-71ec2bf1e95f)
 
 Uso de la cámara con Flutter para obtener la imagen a procesar.
 
-![Video de WhatsApp 2024-05-23 a las 00 16 11_e28eeb8a - frame at 0m13s](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/2ab5689f-c802-4af3-a4a6-b3bf8f303efa)
+![Imagen de WhatsApp 2024-05-25 a las 20 33 12_ea5737c8](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/79539900-5924-4e02-947f-a345f1646e1d)
+
+Despliegue de menú de filtros a aplicar a la imagen.
+
+![Imagen de WhatsApp 2024-05-25 a las 20 33 12_a66d0e5b](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/e65a869d-289c-4c30-b2fd-10a8de175836)
+
 
 Selección de filtro circular a aplicar sobre la imagen tomada.
 
-![Video de WhatsApp 2024-05-23 a las 00 16 11_e28eeb8a - frame at 0m19s](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/59b62d49-cdf7-4878-bf14-9cdc9d7be9be)
+![Imagen de WhatsApp 2024-05-25 a las 20 33 13_7e64cc97](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/ac13300a-b263-4110-b39b-604b09b07aae)
 
-Selección de filtro marea a aplicar en la imagen tomada.
 
-![Video de WhatsApp 2024-05-23 a las 00 16 11_e28eeb8a - frame at 0m21s](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/f0d6b434-b111-4c9c-b427-6fa15f4b2de0)
+Selección de filtro fuxia a aplicar en la imagen tomada.
+
+![Imagen de WhatsApp 2024-05-25 a las 20 33 13_306f8520](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/a7f0b91a-daae-43ad-a306-7518f6b5abcb)
+
 
 Selección de filtro UPS a aplicar en la imagen tomada.
 
-![Video de WhatsApp 2024-05-23 a las 00 16 11_e28eeb8a - frame at 0m22s](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/66d2ffa0-cbe7-4d53-acd1-8434cec77f0b)
+![Imagen de WhatsApp 2024-05-25 a las 20 33 13_c95acb5f](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/e1f77451-e2bc-4704-a492-0ec699168090)
+
 
 -Cuando se haya definido el filtro a aplicar se selecciona el botón de enviar del menú para guardar el resultado con un nombre de archivo ingresado por el usuario.
 
-![Video de WhatsApp 2024-05-23 a las 00 16 11_e28eeb8a - frame at 0m30s](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/e2fa85c2-640d-4031-a0ea-81ca4c44eaba)
+![Imagen de WhatsApp 2024-05-25 a las 20 33 13_f4c3f132](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/220d9748-4cff-432b-b08a-32fabe512b2a)
 
-Guardado exitoso de la imagen y su visualización en la aplicación móvil.
 
-![Video de WhatsApp 2024-05-23 a las 00 16 11_e28eeb8a - frame at 0m46s](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/b166a75a-8489-4916-81a2-bd11032e2e76)
+Guardado exitoso de la imagen resultante de aplicar el filtro circular y su visualización en la aplicación móvil.
+
+![Imagen de WhatsApp 2024-05-25 a las 20 33 13_fdabb0a9](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/b507fe6f-f999-4508-8ee3-ec3ab9a04f86)
+
 
 Resultado de dockerizar la Aplicación
 
