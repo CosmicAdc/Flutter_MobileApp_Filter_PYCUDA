@@ -85,8 +85,19 @@ Guardado exitoso de la imagen resultante de aplicar el filtro circular y su visu
 
 ![Imagen de WhatsApp 2024-05-25 a las 20 33 13_fdabb0a9](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/b507fe6f-f999-4508-8ee3-ec3ab9a04f86)
 
+Dockerizacion del BackEnd fastAPI en base al dockerfile.
 
-Resultado de dockerizar la Aplicación
+![Imagen de WhatsApp 2024-05-26 a las 10 41 00_4aa8d98d](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/d4cc8865-beff-46e3-8560-1c33d657c4d1)
+![Imagen de WhatsApp 2024-05-26 a las 10 41 24_b35b6738](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/02eb5044-fd88-4907-a76b-428eead9b6b5)
+
+Resultado de dockerizar la Aplicación en una Imagen.
+
+![Imagen de WhatsApp 2024-05-26 a las 10 43 41_efd2b189](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/0ff674ef-383b-43ec-8c4d-a9ee7e28270a)
+
+Despliegue de la imagen back_fastapi-web en un contenedor.
+
+![Imagen de WhatsApp 2024-05-26 a las 10 43 32_81aa9a55](https://github.com/CosmicAdc/Flutter_MobileApp_Filter_PYCUDA/assets/84852007/9d34d8e7-5ad5-4e5a-ba8d-2021026c1473)
+
 
 ## Conclusiones 
 
