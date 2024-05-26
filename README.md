@@ -32,6 +32,10 @@ Desarrollar una aplicación flutter de edición de imágenes por medios de filtr
 7. Se desarrollo una aplicación móvil usando flutter y comunicaciones por medio de URL de los request de la API, esto para las páginas de login, register y convolución de imágenes por medio de imágenes del dispositivo móvil.
    Se usaron archivos DART para el diseño y funcionalidad de conexión HTTP a las funciones de PYCUDA y sistema de Login/Register de la API, esto además de un diseño intuitivo para el usuario, asi como el manejo de errores de conexión a la API para la garantizar la disponibilidad de la aplicación. Esto permitirá generar la APK de la aplicación para poder instalarla en los sistemas móviles. Las páginas de login y register son la página principal para verificar que el usuario este autorizado, luego con ello se guiara a la página de convoluciones de imágenes donde se capturara la imagen con la cámara del dispositivo, posteriormente se seleccionara el tipo de filtro a aplicar para ser guardado y mostrado en la misma aplicación.
 9. Dockerizacion de la API y la base de datos.
+   Se creó un Dockerfile para construir la imagen de la API con Python 3.10, CUDA 12.2.2 y las dependencias necesarias. La imagen se basa en nvidia/cuda:12.2.2-devel-ubi8 e incluye la instalación de Poetry para gestionar las dependencias.
+   Además, se generó un archivo docker-compose.yml para orquestar la ejecución de dos servicios: la API y la base de datos PostgreSQL.
+   El servicio web construye la imagen de la API utilizando el Dockerfile, expone el puerto 8000 y se configura con la URL de la base de datos.
+   El servicio db utiliza la imagen oficial de PostgreSQL 13, configura las credenciales, expone el puerto 5432 y define un volumen para persistir los datos.
 10. Generación de la APK.
 
 ## Resultados obtenidos
